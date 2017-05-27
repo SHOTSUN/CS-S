@@ -54,7 +54,7 @@ namespace Server
                     byte[] data2 = new byte[256];
                     String responseData = String.Empty;
                     Int32 bytes = stream.Read(data2, 0, data2.Length);
-                    responseData = System.Text.Encoding.ASCII.GetString(data2, 0, bytes);
+                    responseData = System.Text.Encoding.Unicode.GetString(data2, 0, bytes);
                     Console.WriteLine("Received: {0}", responseData);
                     
                     manage(responseData);
@@ -152,7 +152,7 @@ namespace Server
                     }
                 case 11:
                     {
-                        send(stream, "Size of directory: " + dirSize(directory).ToString());
+                        send(stream, "Размер директории: " + dirSize(directory).ToString() + " байт.");
                         break;
                     }
                     
@@ -160,7 +160,7 @@ namespace Server
 
                 default:
                     {
-                        send(stream, "SOMETHING WRONG");
+                        send(stream, "ОШИБКА! ПОВТОРИТЕ ПОПЫТКУ!");
                         break;
                     }
                    
@@ -172,7 +172,7 @@ namespace Server
         private void send(NetworkStream stream, String message)
         {
 
-            byte[] data = Encoding.UTF8.GetBytes(message);
+            byte[] data = Encoding.Unicode.GetBytes(message);
             
             // отправка сообщения
             stream.Write(data, 0, data.Length);
@@ -200,18 +200,18 @@ namespace Server
                 builder.Append(Environment.NewLine);
             }
             
-            return "Directories:" + Environment.NewLine + builder.ToString();
+            return "Папки:" + Environment.NewLine + builder.ToString();
         }
 
 
         //размер файла
         public static String sizeFile(string dirName, string name)
         {
-            String rezult = "SOMETHING WRONG";
+            String rezult = "ФАЙЛ НЕ НАЙДЕН!";
             if (File.Exists(dirName + name))
             {
                 long fileSize = new FileInfo(dirName + name).Length;
-                rezult = "Size of file: " + fileSize.ToString() + " bytes;";
+                rezult = "Размер файла: " + fileSize.ToString() + " байт.";
             }
             return rezult;
             
@@ -221,13 +221,13 @@ namespace Server
         //создать файл
         public static String createFile(string dirName, string name, string text)
         {
-            String rezult = "SOMETHING WRONG";
+            String rezult = "ОШИБКА! ПОВТОРИТЕ ПОПЫТКУ!";
 
             if (Directory.Exists(dirName))
             {
 
                 File.AppendAllText(dirName + name, text);
-                rezult = "File " + name + " created;";
+                rezult = "Файл " + name + " создан.";
                 
 
             }
@@ -239,14 +239,14 @@ namespace Server
         //удалить файл
         public static String deleteFile(string dirName, string name)
         {
-            String rezult = "FILE DOES NOT EXIST";
+            String rezult = "Файл не найден !";
 
             
 
             if (File.Exists(dirName + name))
             {
                 File.Delete(dirName + name);
-                rezult = "File " + name + " deleted;";
+                rezult = "Файл " + name + " удален. ";
             }
 
             return rezult;
@@ -256,11 +256,11 @@ namespace Server
         //поиск файла
         public static String findFile(string dirName, string name)
         {
-            String rezult = "File not found";
+            String rezult = "Файл не найден !";
             
             if  (File.Exists(dirName + name))
             {
-                rezult = "File " + name + " in " + dirName + " exist;";
+                rezult = "Файл " + name + " в " + dirName + " найден.";
 
             }
 
@@ -270,11 +270,11 @@ namespace Server
         //время создания файла
         public static String creationTimeFile(string dirName, string name)
         {
-            String rezult = "File not found";
+            String rezult = "Файл не найден !";
 
             if (File.Exists(dirName + name))
             {
-                rezult = "File creation time: ";
+                rezult = "Время создания файла: ";
                 rezult += File.GetCreationTime(dirName + name);
              
             }
@@ -285,14 +285,14 @@ namespace Server
         //изменение времени создания
         public static String SetCreationTimeFile(string dirName, string name, string text)
         {
-            String rezult = "File not found";
+            String rezult = "Файл не найден !";
 
             if (File.Exists(dirName + name))
             {
                 string [] date = text.Split('.');
 
                 File.SetCreationTime(dirName + name, new DateTime(Convert.ToInt16(date[2]), Convert.ToInt16(date[1]), Convert.ToInt16(date[0])));
-                rezult = "Creation time changed.";
+                rezult = "Время создания файла изменено.";
             
             }
 
@@ -302,11 +302,11 @@ namespace Server
         //время изменения файла
         public static String modificationTimeFile(string dirName, string name)
         {
-            String rezult = "File not found";
+            String rezult = "Файл не найден !";
 
             if (File.Exists(dirName + name))
             {
-                rezult = "Last modification time: ";
+                rezult = "Время последнего изменения файла: ";
                 rezult += File.GetLastWriteTime(dirName + name);
 
             }
@@ -317,14 +317,14 @@ namespace Server
         //изменение  времени изменения файла
         public static String setModificationTimeFile(string dirName, string name, string text)
         {
-            String rezult = "File not found";
+            String rezult = "Файл не найден !";
 
             if (File.Exists(dirName + name))
             {
                 string[] date = text.Split('.');
 
                 File.SetLastWriteTime(dirName + name, new DateTime(Convert.ToInt16(date[2]), Convert.ToInt16(date[1]), Convert.ToInt16(date[0])));
-                rezult = "Modification time changed.";
+                rezult = "Время модификации файла изменено.";
 
             }
 
@@ -334,7 +334,7 @@ namespace Server
         //количество папок в директории
         public static String numberDirInDir(string dirName)
         {
-            string rezult = "SOMETHING WRONG";
+            string rezult = "ОШИБКА! ПОВТОРИТЕ ПОПЫТКУ!";
             string[] dirs = null;
 
             
@@ -342,9 +342,9 @@ namespace Server
             if (Directory.Exists(dirName))
             {
                 dirs = Directory.GetDirectories(dirName);
-                rezult = "The number of directories in the directory - ";
+                rezult = "Количество папок в директории - ";
                 rezult += Convert.ToString(dirs.Length);
-                rezult += ";";
+                rezult += ".";
             }
             
             return rezult;
@@ -353,15 +353,15 @@ namespace Server
         //количество файлов в директории
         public static String numberFilesInDir(string dirName)
         {
-            string rezult = "SOMETHING WRONG";
+            string rezult = "ОШИБКА! ПОВТОРИТЕ ПОПЫТКУ!";
             string[] dirs = null;
 
             if (Directory.Exists(dirName))
             {
                 dirs = Directory.GetFiles(dirName);
-                rezult = "The number of directories in the directory - ";
+                rezult = "Количество файлов в директории - ";
                 rezult += Convert.ToString(dirs.Length);
-                rezult += ";";
+                rezult += ".";
             }
 
             return rezult;

@@ -30,7 +30,7 @@ namespace Client
         public void send(String message)
         {
             try { 
-                Byte[] data = System.Text.Encoding.ASCII.GetBytes(message);
+                Byte[] data = System.Text.Encoding.Unicode.GetBytes(message);
 
                 NetworkStream stream = client.GetStream();
                 stream.Write(data, 0, data.Length);
@@ -53,13 +53,13 @@ namespace Client
 
             try
             {
-                Byte [] data = new Byte[256];
+                Byte [] data = new Byte[1100];
 
 
                 NetworkStream stream = client.GetStream();
 
                 Int32 bytes = stream.Read(data, 0, data.Length);
-                responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
+                responseData = System.Text.Encoding.Unicode.GetString(data, 0, bytes);
                 
                 stream.Close();
 
