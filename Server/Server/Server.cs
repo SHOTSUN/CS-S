@@ -15,12 +15,16 @@ namespace Server
         private TcpClient client = null;
         private NetworkStream stream = null;
 
+        TcpListener serverListener = null;
+
 
 
         public Server(int port, IPAddress localAddr)
         {
             this.port = port;
             this.localAddr = localAddr;
+
+            this.serverListener = new TcpListener(localAddr, port);
         }
         
         
@@ -28,7 +32,6 @@ namespace Server
         public void run()
         {
             Console.WriteLine("SERVER RUNNING");
-            TcpListener serverListener = new TcpListener(localAddr, port);
 
             try
             {
@@ -50,7 +53,7 @@ namespace Server
 
                     Console.WriteLine("****");
 
-
+                    
                     byte[] data2 = new byte[256];
                     String responseData = String.Empty;
                     Int32 bytes = stream.Read(data2, 0, data2.Length);
@@ -77,6 +80,12 @@ namespace Server
                 Console.ReadLine();
             }
             
+        }
+
+        public void stop()
+        {
+            serverListener.Stop();
+            stream.Close();
         }
 
 
@@ -155,8 +164,14 @@ namespace Server
                         send(stream, "Размер директории: " + dirSize(directory).ToString() + " байт.");
                         break;
                     }
-                    
 
+                case 12:
+                    {
+                        send(stream, showFilesInDir(directory));
+                        break;
+                    }
+
+                    
 
                 default:
                     {
@@ -391,7 +406,29 @@ namespace Server
 
             return size;
         }
-        
+
+        //показать все файлы директории
+        public static String showFilesInDir(string dirName)
+        {
+            string[] files = null;
+
+            if (Directory.Exists(dirName))
+            {
+                files = Directory.GetFiles(dirName);
+            }
+
+            StringBuilder builder = new StringBuilder();
+
+            for (int n = 0; n < files.Length; n++)
+            {
+                builder.Append(files[n]);
+                builder.Append(Environment.NewLine);
+            }
+
+            return "Файлы:" + Environment.NewLine + builder.ToString();
+        }
+
+
     }
     
 }

@@ -49,7 +49,7 @@ namespace Client
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            textBox1.Text += Environment.NewLine + "\t\t   СLIENT STARTED\n";
+            textBox1.Text += Environment.NewLine + "\t\t   КЛИЕНТ НАЧАЛ РАБОТУ\n";
         }
         
 
@@ -201,6 +201,17 @@ namespace Client
                     break;
 
                 case 11:
+                    label1.Visible = true;
+                    textBox2.Visible = true;
+
+                    label2.Visible = false;
+                    textBox3.Visible = false;
+
+                    label3.Visible = false;
+                    textBox4.Visible = false;
+                    break;
+
+                case 12 :
                     label1.Visible = true;
                     textBox2.Visible = true;
 

@@ -85,7 +85,8 @@
             "Изменить время последнего изменения файла",
             "Количество папок в директории",
             "Количество файлов в директории",
-            "Размер директории"});
+            "Размер директории",
+            "Показать все файлы, выбранной директории"});
             this.comboBox1.Location = new System.Drawing.Point(22, 19);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(280, 21);
