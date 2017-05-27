@@ -1,0 +1,9 @@
+D:\БНТУ\COURSE #2\4 Семестр\КСиС\CW\Client\Client\bin\Debug\Client.exe.config
+D:\БНТУ\COURSE #2\4 Семестр\КСиС\CW\Client\Client\obj\Debug\Client.csprojResolveAssemblyReference.cache
+D:\БНТУ\COURSE #2\4 Семестр\КСиС\CW\Client\Client\obj\Debug\Client.Form1.resources
+D:\БНТУ\COURSE #2\4 Семестр\КСиС\CW\Client\Client\obj\Debug\Client.Properties.Resources.resources
+D:\БНТУ\COURSE #2\4 Семестр\КСиС\CW\Client\Client\obj\Debug\Client.csproj.GenerateResource.Cache
+D:\БНТУ\COURSE #2\4 Семестр\КСиС\CW\Client\Client\bin\Debug\Client.exe
+D:\БНТУ\COURSE #2\4 Семестр\КСиС\CW\Client\Client\bin\Debug\Client.pdb
+D:\БНТУ\COURSE #2\4 Семестр\КСиС\CW\Client\Client\obj\Debug\Client.exe
+D:\БНТУ\COURSE #2\4 Семестр\КСиС\CW\Client\Client\obj\Debug\Client.pdb
